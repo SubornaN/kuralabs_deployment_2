@@ -1,12 +1,3 @@
-// defining a function for notification
-
-def notification() {
-  mail(
-      subject: "Jenkins Job Status Report '${env.JOB_NAME}' | Build #'${env.BUILD_NUMBER}'",
-      body: "Check console output at http://3.95.15.56:8080/job/Deployment_2/job/main/${env.BUILD_NUMBER}/console",
-      to: 'subornadnath@gmail.com'
-    )
-}
 
 //pipeline
 pipeline {
@@ -47,7 +38,11 @@ pipeline {
      stage ('Email') {
        steps {          
              //mail(body: 'This is the body of the email', subject: 'This is a test email using Mailer', to: 'subornadnath@gmail.com')
-             notification()
+      mail(
+            subject: "Jenkins Job Status Report '${env.JOB_NAME}' | Build #'${env.BUILD_NUMBER}'",
+            body: "Check console output at http://3.95.15.56:8080/job/Deployment_2/job/main/${env.BUILD_NUMBER}/console",
+            to: 'subornadnath@gmail.com'
+    )
        }
      }
   }
