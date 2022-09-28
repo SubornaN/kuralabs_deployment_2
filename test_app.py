@@ -15,4 +15,4 @@ def test_invalid_url():
     
 def test_saved_url():
     response = app.test_client().get('/house')
-    assert response.status_code == 200
+    assert response.status_code == 302
