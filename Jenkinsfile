@@ -33,5 +33,10 @@ pipeline {
          sh '/var/lib/jenkins/.local/bin/eb deploy url-shortner-dev'
        }
      }
+     stage ('Email') {
+       steps {
+          mail(body: 'This is the body of the email', cc: '', from: '', replyTo: '', subject: 'This is a test email using Mailer', to: 'subornadnath@gmail.com')
+       }
+     }
   }
  }
