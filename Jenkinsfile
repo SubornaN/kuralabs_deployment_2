@@ -1,6 +1,7 @@
 pipeline {
   agent any
    stages {
+     try {
     stage ('Build') {
       steps {
         sh '''#!/bin/bash
@@ -33,10 +34,8 @@ pipeline {
          sh '/var/lib/jenkins/.local/bin/eb deploy url-shortner-dev'
        }
      }
-     stage ('Email') {
-       steps {
-          mail(body: 'This is the body of the email', subject: 'This is a test email using Mailer', to: 'subornadnath@gmail.com')
-       }
+     } catch (err) {
+       mail(body:"$(err)" , subject: 'failure', to: 'subornadnath@gmail.com')
      }
   }
  }
