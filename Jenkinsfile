@@ -3,7 +3,7 @@
 def notification() {
   mail(
       subject: "Jenkins Job Status Report '${env.JOB_NAME}' | Build #'${env.BUILD_NUMBER}'",
-      body: "Check console output at '${env.JENKINS_URL}'",
+      body: "Check console output at http://3.95.15.56:8080/job/Deployment_2/job/main/'${env.BUILD_NUMBER}'/console",
       to: 'subornadnath@gmail.com'
     )
 }
