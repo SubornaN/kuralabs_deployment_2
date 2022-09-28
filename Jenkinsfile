@@ -35,6 +35,17 @@ pipeline {
          sh '/var/lib/jenkins/.local/bin/eb deploy url-shortner-dev'
        }
      }
+     stage ('Cypress Test') {
+      steps {
+        sh ''' 
+        cd ./cypress_test
+        npm install
+        npm install cypress --save-dev
+        npx cypress run --spec ./cypress/integration/test.spec.js
+        '''
+        
+      }
+     }
      stage ('Email') {
        steps {          
              //mail(body: 'This is the body of the email', subject: 'This is a test email using Mailer', to: 'subornadnath@gmail.com')
