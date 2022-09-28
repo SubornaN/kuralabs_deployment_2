@@ -18,9 +18,11 @@ def notifyFailed() {
 //pipeline
 pipeline {
   agent any
+      
    stages {
-     try {
     stage ('Build') {
+     node {  
+      try {
       steps {
         sh '''#!/bin/bash
         python3 -m venv test3
@@ -31,11 +33,13 @@ pipeline {
         flask run &
         '''
      }
-   }
-   notifySuccessful()
-     } catch (e) {
+       notifySuccessful()
+   } catch (e) {
      notifyFailed()
      }
+          
+  } 
+    }
     stage ('test') {
       steps {
         sh '''#!/bin/bash
