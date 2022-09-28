@@ -1,28 +1,19 @@
-// defining functions for notification
-def notifySuccessful() {
-mail(
-      subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-      body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-    )
-}
-def notifyFailed() {
+// defining a function for notification
+
+def notification() {
   mail(
-      subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+      subject: "Jenkins Job Status Report'${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
       body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
         <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
     )
 }
+
 //pipeline
 pipeline {
   agent any
-      
    stages {
     stage ('Build') {
-     node {  
-      try {
       steps {
         sh '''#!/bin/bash
         python3 -m venv test3
@@ -33,13 +24,7 @@ pipeline {
         flask run &
         '''
      }
-       notifySuccessful()
-   } catch (e) {
-     notifyFailed()
-     }
-          
-  } 
-    }
+   }
     stage ('test') {
       steps {
         sh '''#!/bin/bash
@@ -60,6 +45,11 @@ pipeline {
          sh '/var/lib/jenkins/.local/bin/eb deploy url-shortner-dev'
        }
      }
-
+     stage ('Email') {
+       steps {          
+             //mail(body: 'This is the body of the email', subject: 'This is a test email using Mailer', to: 'subornadnath@gmail.com')
+             notification()
+       }
+     }
   }
  }
