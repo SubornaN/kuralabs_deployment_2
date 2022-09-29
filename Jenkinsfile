@@ -34,8 +34,8 @@ pipeline {
       steps {
         sh '''#!/bin/bash 
         cd ./cypress_test
-        npm install
-        npm install cypress --save-dev
+        #npm install
+        #npm install cypress --save-dev
         npx cypress run --spec ./cypress/e2e/test.cy.js
         '''
         
