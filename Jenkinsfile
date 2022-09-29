@@ -41,7 +41,7 @@ pipeline {
         cd ./cypress_test
         npm install
         npm install cypress --save-dev
-        npx cypress run --spec ./cypress/integration/test.spec.js
+        npx cypress run --spec ./cypress/e2e/test.cy.js
         '''
         
       }
