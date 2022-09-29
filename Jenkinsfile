@@ -32,7 +32,7 @@ pipeline {
     }    
     stage ('Cypress Test') {
       steps {
-        sh ''' 
+        sh '''#!/bin/bash 
         cd ./cypress_test
         npm install
         npm install cypress --save-dev
