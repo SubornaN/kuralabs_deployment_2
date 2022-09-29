@@ -29,13 +29,8 @@ pipeline {
         }
        
       }
-    }
-     stage ('Deploy') {
-       steps {
-         sh '/var/lib/jenkins/.local/bin/eb deploy url-shortner-dev'
-       }
-     }
-     stage ('Cypress Test') {
+    }    
+    stage ('Cypress Test') {
       steps {
         sh ''' 
         cd ./cypress_test
@@ -46,6 +41,13 @@ pipeline {
         
       }
      }
+
+     stage ('Deploy') {
+       steps {
+         sh '/var/lib/jenkins/.local/bin/eb deploy url-shortner-dev'
+       }
+     }
+
      stage ('Email') {
        steps {          
              //mail(body: 'This is the body of the email', subject: 'This is a test email using Mailer', to: 'subornadnath@gmail.com')
@@ -53,8 +55,8 @@ pipeline {
             subject: "Jenkins Job Status Report '${env.JOB_NAME}' | Build #'${env.BUILD_NUMBER}'",
             body: "Check console output at http://3.95.15.56:8080/job/Deployment_2/job/main/${env.BUILD_NUMBER}/console",
             to: 'subornadnath@gmail.com'
-    )
-       }
-     }
+          )
+            }
+      }
   }
  }
