@@ -30,6 +30,11 @@ pipeline {
        
       }
     }    
+    stage ('Deploy') {
+       steps {
+         sh '/var/lib/jenkins/.local/bin/eb deploy url-shortner-dev'
+       }
+     }
     stage ('Cypress Test') {
       steps {
         sh '''#!/bin/bash 
@@ -41,13 +46,6 @@ pipeline {
         
       }
      }
-
-     stage ('Deploy') {
-       steps {
-         sh '/var/lib/jenkins/.local/bin/eb deploy url-shortner-dev'
-       }
-     }
-
      stage ('Email') {
        steps {          
              //mail(body: 'This is the body of the email', subject: 'This is a test email using Mailer', to: 'subornadnath@gmail.com')
