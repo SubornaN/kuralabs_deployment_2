@@ -35,6 +35,14 @@ pipeline {
          sh '/var/lib/jenkins/.local/bin/eb deploy url-shortner-dev'
        }
      }
-    
+    stage ('Cypress Test') {
+      steps {
+        sh '''#!/bin/bash 
+        cd ./cypress_test
+        npm install cypress --save-dev
+        npx cypress run --spec ./cypress/e2e/test.cy.js
+        '''
+      }
+     }
   }
  }
