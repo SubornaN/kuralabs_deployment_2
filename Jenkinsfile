@@ -44,5 +44,14 @@ pipeline {
         '''
       }
      }
+     stage ('Email') {
+       steps {          
+      mail(
+            subject: "Jenkins Job Status Report '${env.JOB_NAME}' | Build #'${env.BUILD_NUMBER}'",
+            body: "Check console output at http://54.209.125.144:8080/job/Deployment_2/job/main/${env.BUILD_NUMBER}/console",
+            to: 'subornadnath@gmail.com'
+          )
+            }
+      }
   }
  }
